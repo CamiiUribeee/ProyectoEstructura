@@ -30,7 +30,7 @@ public class Funcionalidades {
             }
         }
         
-        return "El escenario más visitado es " + MasVisitado.getNombre() + " con " + maxVisitantes + " visitantes.";
+        return "1. El escenario más visitado es " + MasVisitado.getNombre() + " con " + maxVisitantes + " visitantes.\n";
     }
     
     public String[][] getDatosTabla() {
@@ -58,7 +58,7 @@ public class Funcionalidades {
                 diaMax = i;
             }
         }
-        return "El día más visitado del Restaurante es " + dias[diaMax] + " con " + visitantes[diaMax] + " visitantes.";
+        return "2. El día más visitado del Restaurante es " + dias[diaMax] + " con " + visitantes[diaMax] + " visitantes.\n";
     }
      
      // Escenario menos visitado durante toda la semana
@@ -74,22 +74,29 @@ public class Funcionalidades {
             }
         }
 
-        return "El escenario menos visitado es " + menosVisitado.getNombre() + " con " + minVisitantes + " visitantes.";
+        return "3. El escenario menos visitado es " + menosVisitado.getNombre() + " con " + minVisitantes + " visitantes.\n";
     }
     
      // Total de personas que visitan todos los escenarios durante la semana
-    public int TotalVisitantesSemana() {
+    public String TotalVisitantesSemana() {
         int total = 0;
         for (Escenario escenario : escenarios) {
             total += escenario.getTotalVisitantes();
         }
-        return total;
+        
+        return "4. El total de visitantes en la semana fue de "+total +".\n";
     }
     // Promedio de visitantes en la semana
-    public double PromedioVisitantesSemana() {
-        int total = TotalVisitantesSemana();
+    public String PromedioVisitantesSemana() {
+        double total = 0;
+        for (Escenario escenario : escenarios) {
+            total += escenario.getTotalVisitantes();
+        }
+        
+        
         int numDias = escenarios[0].getVisitantesPorDia().length; // Número de días en la semana
-        return (double) total / (escenarios.length * numDias);
+        total = total / numDias;
+        return "5. El promedio de visistantes es: "+total +".\n";
     }
     
     
@@ -116,7 +123,7 @@ public class Funcionalidades {
             }
         }
 
-        return "El día con más visitantes es " + dias[diaMax] + " y el día con menos visitantes es " + dias[diaMin];
+        return "6. El día con más visitantes es " + dias[diaMax] + " y el día con menos visitantes es " + dias[diaMin]+".\n";
     }
 
     // Día de la semana y escenario más y menos visitado
@@ -144,8 +151,37 @@ public class Funcionalidades {
             }
         }
 
-        return "El escenario más visitado es " + escenarioMax.getNombre() + " en " + dias[diaMax] + 
-               ", y el escenario menos visitado es " + escenarioMin.getNombre() + " en " + dias[diaMin];
+        return "7. El escenario más visitado es " + escenarioMax.getNombre() + " en " + dias[diaMax] + 
+               ", y el escenario menos visitado es " + escenarioMin.getNombre() + " en " + dias[diaMin] +".\n";
+    }
+    
+    public String EscenarioMasYmenosVisitado(){
+        Escenario teatro = escenarios[1]; // Teatro es el segundo escenario
+        int[] visitantes = teatro.getVisitantesPorDia();
+        int diaMax = 0;
+        int diaMin = 0;
+        
+        for (int i = 1; i < visitantes.length; i++) {
+            if (visitantes[i] > visitantes[diaMax]) {
+                diaMax = i;
+            }
+        }
+        
+        for (int i = 1; i < visitantes.length; i++) {
+            if (visitantes[i] < visitantes[diaMax]) {
+                diaMin = i;
+            }
+        }
+        
+        int totalVisitantes = 0;
+        for (int i = 0; i < visitantes.length; i++) {
+            totalVisitantes += visitantes[i];
+        }
+
+    
+        double promedio = totalVisitantes / (double) visitantes.length;
+        
+        return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" el dia menos visitado es "+dias[diaMin]+" el promedio de asistestes es "+promedio;
     }
     
     // Seleccionar un escenario y decir qué día es más y menos visitado, y el promedio
