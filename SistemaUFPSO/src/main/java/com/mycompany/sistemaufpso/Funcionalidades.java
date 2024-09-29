@@ -1,6 +1,6 @@
 
 package com.mycompany.sistemaufpso;
-
+import javax.swing.JOptionPane;
 
 public class Funcionalidades {
     
@@ -17,6 +17,36 @@ public class Funcionalidades {
         escenarios[2] = new Escenario(nombresEscenarios[2], new int[] {89, 23, 88, 66, 55, 56});
         escenarios[3] = new Escenario(nombresEscenarios[3], new int[] {54, 26, 48, 19, 21, 78});
     }
+    
+    public void llenarEscenariosManual() {
+    String[] nombresEscenarios = {"GYM", "Teatro Bellas Artes", "Canchas sintéticas", "Restaurante escolar"};
+    
+    escenarios = new Escenario[4]; 
+    
+    // Recorrer cada escenario
+    for (int i = 0; i < nombresEscenarios.length; i++) {
+        int[] visitantesPorDia = new int[6]; // 6 días de la semana
+        
+        // Pedir el número de visitantes para cada día de la semana
+        for (int j = 0; j < dias.length; j++) {
+            String input = JOptionPane.showInputDialog(null, 
+                "Ingrese la cantidad de visitantes para " + nombresEscenarios[i] + " el " + dias[j] + ":");
+            
+            // Convertir el input a entero y almacenarlo en el array
+            try {
+                visitantesPorDia[j] = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida, ingrese un número válido.");
+                j--; // Repetir el día si hubo un error
+            }
+        }
+        
+        // Crear un nuevo escenario con los valores ingresados
+        escenarios[i] = new Escenario(nombresEscenarios[i], visitantesPorDia);
+    }
+    
+    JOptionPane.showMessageDialog(null, "Matriz de visitantes llenada correctamente.");
+}
     
     public String EscenarioMasVisitado() {
         Escenario MasVisitado = null;
