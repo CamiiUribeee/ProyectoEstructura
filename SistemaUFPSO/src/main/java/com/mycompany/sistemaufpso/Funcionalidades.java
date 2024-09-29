@@ -214,7 +214,18 @@ public class Funcionalidades {
         return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" el dia menos visitado es "+dias[diaMin]+" el promedio de asistestes es "+promedio;
     }
     
-    // Seleccionar un escenario y decir qué día es más y menos visitado, y el promedio
-   // falta este!!!!!!
+    //A PARTIR DE AQUÍ INICIA EL MANEJO DE LA LISTA SIMPLE Y LA FUNCIONALIDAD DEL CINE 
+    
+    public String mostrarCarteleraPeli() {
+        
+        String[] peliculas = {"Venom", "Gladiador", "Avatar", "Joker", "Jurassic World"};
+        StringBuilder cartelera = new StringBuilder("Cartelera de películas:\n"); //creo la cedena de texto
+    
+        for (int i = 0; i < peliculas.length; i++) {
+            cartelera.append((i + 1) + ". " + peliculas[i] + "\n");
+        }
+    
+        return cartelera.toString();
+    }
     
 }

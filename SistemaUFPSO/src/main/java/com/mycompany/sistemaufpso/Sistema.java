@@ -32,6 +32,8 @@ public class Sistema extends javax.swing.JFrame {
         randommasymenosVisitado = new javax.swing.JButton();
         llenarTabla = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        mostrarCartelera = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,16 +129,19 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel1.setText("Sistema UFPSO");
 
+        mostrarCartelera.setText("Mostrar Cartelera de Películas");
+        mostrarCartelera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarCarteleraActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("CINE");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(tablaDatos)
-                .addGap(113, 113, 113)
-                .addComponent(llenarTabla)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -167,6 +172,21 @@ public class Sistema extends javax.swing.JFrame {
                         .addGap(379, 379, 379)
                         .addComponent(jLabel1)))
                 .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(tablaDatos)
+                        .addGap(113, 113, 113)
+                        .addComponent(llenarTabla))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mostrarCartelera)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel2)))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +213,11 @@ public class Sistema extends javax.swing.JFrame {
                     .addComponent(randommasymenosVisitado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Search)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mostrarCartelera)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
@@ -276,6 +300,15 @@ public class Sistema extends javax.swing.JFrame {
         objfunciones.llenarEscenariosManual();
     }//GEN-LAST:event_llenarTablaActionPerformed
 
+    private void mostrarCarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarCarteleraActionPerformed
+        // TODO add your handling code here:
+        String cartelera = objfunciones.mostrarCarteleraPeli();
+        
+        // Mostrar la cartelera
+        JOptionPane.showMessageDialog(null, cartelera, "Cartelera de Películas", JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_mostrarCarteleraActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -314,10 +347,12 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton escenariomasVisitado;
     private javax.swing.JButton escenariomenosVisitado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton llenarTabla;
     private javax.swing.JButton masmenosescenarioVisitado;
     private javax.swing.JButton masvisitadoRestaurant;
+    private javax.swing.JButton mostrarCartelera;
     private javax.swing.JButton promedioVisitantes;
     private javax.swing.JButton randommasymenosVisitado;
     private javax.swing.JTable tabla;

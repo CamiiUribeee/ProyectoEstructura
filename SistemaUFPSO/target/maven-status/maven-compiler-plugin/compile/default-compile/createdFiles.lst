@@ -1,4 +1,5 @@
 com\mycompany\sistemaufpso\Funcionalidades.class
+com\mycompany\sistemaufpso\Nodo.class
 com\mycompany\sistemaufpso\Sistema$6.class
 com\mycompany\sistemaufpso\Sistema$12.class
 com\mycompany\sistemaufpso\Sistema$10.class
@@ -12,5 +13,6 @@ com\mycompany\sistemaufpso\Sistema$9.class
 com\mycompany\sistemaufpso\Sistema$8.class
 com\mycompany\sistemaufpso\Sistema.class
 com\mycompany\sistemaufpso\Sistema$2.class
+com\mycompany\sistemaufpso\Sistema$13.class
 com\mycompany\sistemaufpso\Sistema$1.class
 com\mycompany\sistemaufpso\Sistema$5.class
