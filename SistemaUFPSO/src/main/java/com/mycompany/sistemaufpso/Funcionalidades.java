@@ -324,8 +324,7 @@ public class Funcionalidades {
         int contador = 0;
 
         while (actual != null) {
-           
-            int edad = actual.calcularEdad(); // Asumiendo que calcularEdad no necesita parámetros
+            int edad = actual.calcularEdad(); // Ya asumiendo que calcularEdad no necesita parámetros
             if (edad > 65) {
                 contador++;
             }
@@ -334,15 +333,16 @@ public class Funcionalidades {
 
         return contador;
     }
+
     
     public int[] contarHombresYmujeres() {
         Nodo actual = inicio; 
         int[] conteo = new int[2]; // [0] para hombres, [1] para mujeres
 
         while (actual != null) {
-            if (actual.getSexo().equalsIgnoreCase("masculino")) {
+            if (actual.getSexo().equalsIgnoreCase("M")) {
                 conteo[0]++;
-            } else if (actual.getSexo().equalsIgnoreCase("femenino")) {
+            } else if (actual.getSexo().equalsIgnoreCase("F")) {
                 conteo[1]++;
             }
             actual = actual.getSiguiente();
@@ -350,38 +350,42 @@ public class Funcionalidades {
 
         return conteo;
     }
+
     
     public String escenarioConMasMujeres() {
-       
         String escenarioConMasMujeres = "";
         int maxMujeres = 0;
 
+        // Recorremos todos los escenarios
         for (Escenario escenario : escenarios) {
             int cantidadMujeres = contarMujeresPorEscenario(escenario);
+
             if (cantidadMujeres > maxMujeres) {
                 maxMujeres = cantidadMujeres;
-                escenarioConMasMujeres = escenario.getNombre(); // Asumiendo que tienes un método getNombre()
+                escenarioConMasMujeres = escenario.getNombre();
             }
         }
 
-        return escenarioConMasMujeres;
+        return escenarioConMasMujeres.isEmpty() ? "No se encontraron mujeres en ningún escenario." : escenarioConMasMujeres;
     }
+
         
     public int contarMujeresPorEscenario(Escenario escenario) {
-        
-        Nodo actual = inicio; 
-        int contador = 0;
+    Nodo actual = inicio; 
+    int contador = 0;
 
-        while (actual != null) {
-        
-            if (actual.getPelícula().equals(escenario.getNombre()) && actual.getSexo().equalsIgnoreCase("Mujer")) {
-                contador++;
-            }
-            actual = actual.getSiguiente(); // Pasamos al siguiente nodo
+    while (actual != null) {
+        // Usamos .trim() para eliminar posibles espacios en blanco
+        if (actual.getPelícula().equals(escenario.getNombre()) && actual.getSexo().trim().equalsIgnoreCase("F")) {
+            contador++;
         }
+        actual = actual.getSiguiente(); // Pasamos al siguiente nodo
+    }
 
         return contador;
     }
+
+
 
         
         

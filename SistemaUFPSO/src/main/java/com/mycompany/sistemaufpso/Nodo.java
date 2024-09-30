@@ -3,6 +3,7 @@ package com.mycompany.sistemaufpso;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -108,11 +109,17 @@ public class Nodo {
     
     //usamos un metodo para calcular la edad, ya que no la tenemos como atributo 
     public int calcularEdad() {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");  //DateTimeFormatter es una clase en java que me permite tener un formato para fechas en especifico
-        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formato); //localDate es otra clase de java para definir una fecha. Lo que se hace es tomar la cadena de texto, que es nuestro atributo fechaNacimiento y la convierte en un objeto de la clase localDate
-        LocalDate hoy = LocalDate.now();
-        return (int) ChronoUnit.YEARS.between(fechaNac, hoy); //clase para calcular la cantidad de años, retorno un int que sería la edad que tiene esa persona en la actualidad 
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formato); // Convertir la fecha usando el nuevo formato
+            LocalDate hoy = LocalDate.now(); // Obtener la fecha actual
+            return (int) ChronoUnit.YEARS.between(fechaNac, hoy); // Calcular la edad en años
+        } catch (DateTimeParseException e) {
+            System.out.println("Error al parsear la fecha de nacimiento: " + fechaNacimiento);
+            return -1; // Retornar -1 si hay un error en el formato
+        }
     }
+
     
     private String documento; 
     private String nombre; 

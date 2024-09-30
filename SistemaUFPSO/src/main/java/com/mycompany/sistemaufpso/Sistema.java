@@ -353,7 +353,7 @@ public class Sistema extends javax.swing.JFrame {
         String nombreComprador = JOptionPane.showInputDialog("Ingrese su nombre:");
     
         // Solicitar la fecha de nacimiento
-        String fechaNacimiento = JOptionPane.showInputDialog("Ingrese su fecha de nacimiento (formato: dd/mm/yyyy):");
+        String fechaNacimiento = JOptionPane.showInputDialog("Ingrese su fecha de nacimiento (formato: dd-MM-yyyy):");
     
         // Solicitar el sexo
         String sexo = JOptionPane.showInputDialog("Ingrese su sexo (M/F):");
@@ -389,14 +389,21 @@ public class Sistema extends javax.swing.JFrame {
 
     private void cantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadPersonasActionPerformed
         // TODO add your handling code here:
-        int[] conteos = objfunciones.contarHombresYmujeres(); 
-        JOptionPane.showMessageDialog(null, conteos);
         
+        // Obtener conteo de hombres y mujeres
+        int[] conteos = objfunciones.contarHombresYmujeres();
+        String mensajeHombresYMujeres = "Hombres: " + conteos[0] + "\nMujeres: " + conteos[1];
+    
+        // Contar adultos mayores
         int totalAdultosMayores = objfunciones.contarAdultosMayores();
-        JOptionPane.showMessageDialog(null, "Total de adultos mayores: " + totalAdultosMayores);
-        
+        String mensajeAdultosMayores = "Total de adultos mayores a 65 años: " + totalAdultosMayores;
+    
+        // Escenario con más mujeres
         String escenario = objfunciones.escenarioConMasMujeres();
-        JOptionPane.showMessageDialog(null, "Escenario con más mujeres: " + escenario);
+        String mensajeEscenario = "Escenario con más mujeres: " + escenario;
+    
+        // Mostrar todos los resultados en una sola ventana
+        JOptionPane.showMessageDialog(null, mensajeHombresYMujeres + "\n" + mensajeAdultosMayores + "\n" + mensajeEscenario);
     }//GEN-LAST:event_cantidadPersonasActionPerformed
 
     public static void main(String args[]) {
