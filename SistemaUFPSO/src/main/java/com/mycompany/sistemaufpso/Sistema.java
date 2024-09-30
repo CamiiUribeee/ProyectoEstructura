@@ -34,6 +34,9 @@ public class Sistema extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         mostrarCartelera = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        comprarEntrada = new javax.swing.JButton();
+        consultar = new javax.swing.JButton();
+        cantidadPersonas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +141,27 @@ public class Sistema extends javax.swing.JFrame {
 
         jLabel2.setText("CINE");
 
+        comprarEntrada.setText("Comprar entrada");
+        comprarEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comprarEntradaActionPerformed(evt);
+            }
+        });
+
+        consultar.setText("Consultar entrada");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultarActionPerformed(evt);
+            }
+        });
+
+        cantidadPersonas.setText("Cantidad de personas");
+        cantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadPersonasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,11 +206,18 @@ public class Sistema extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mostrarCartelera)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mostrarCartelera)
+                                .addGap(31, 31, 31)
+                                .addComponent(comprarEntrada)
+                                .addGap(31, 31, 31)
+                                .addComponent(consultar)
+                                .addGap(33, 33, 33)
+                                .addComponent(cantidadPersonas))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(jLabel2)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +247,11 @@ public class Sistema extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mostrarCartelera)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrarCartelera)
+                    .addComponent(comprarEntrada)
+                    .addComponent(consultar)
+                    .addComponent(cantidadPersonas))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
@@ -309,6 +344,61 @@ public class Sistema extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mostrarCarteleraActionPerformed
 
+    private void comprarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comprarEntradaActionPerformed
+       
+        // Solicitar el número de documento
+        String documento = JOptionPane.showInputDialog("Ingrese su documento:");
+    
+        // Solicitar el nombre del comprador
+        String nombreComprador = JOptionPane.showInputDialog("Ingrese su nombre:");
+    
+        // Solicitar la fecha de nacimiento
+        String fechaNacimiento = JOptionPane.showInputDialog("Ingrese su fecha de nacimiento (formato: dd/mm/yyyy):");
+    
+        // Solicitar el sexo
+        String sexo = JOptionPane.showInputDialog("Ingrese su sexo (M/F):");
+
+        try {
+            // Solicitar el índice de la película
+            int indice = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la película:"));
+
+            // Validamos que el índice sea correcto
+            if (indice < 1 || indice > objfunciones.obtenerNumeroDePeliculas()) {
+                JOptionPane.showMessageDialog(null, "Número de película inválido. Intente de nuevo.");
+                return;
+            }
+
+            // Vender la entrada
+            objfunciones.venderEntrada(indice - 1, documento, nombreComprador, fechaNacimiento, sexo); 
+
+            // Mostrar las entradas vendidas
+            String ventas = objfunciones.mostrarEntradasVendidas();
+            JOptionPane.showMessageDialog(null, ventas); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, ingrese un número.");
+        }
+        
+    }//GEN-LAST:event_comprarEntradaActionPerformed
+
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        // TODO add your handling code here:
+        String documento = JOptionPane.showInputDialog("Ingrese su documento:");
+        String entradas = objfunciones.mostrarEntradasCompradas(documento); 
+        JOptionPane.showMessageDialog(null, entradas);
+    }//GEN-LAST:event_consultarActionPerformed
+
+    private void cantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadPersonasActionPerformed
+        // TODO add your handling code here:
+        int[] conteos = objfunciones.contarHombresYmujeres(); 
+        JOptionPane.showMessageDialog(null, conteos);
+        
+        int totalAdultosMayores = objfunciones.contarAdultosMayores();
+        JOptionPane.showMessageDialog(null, "Total de adultos mayores: " + totalAdultosMayores);
+        
+        String escenario = objfunciones.escenarioConMasMujeres();
+        JOptionPane.showMessageDialog(null, "Escenario con más mujeres: " + escenario);
+    }//GEN-LAST:event_cantidadPersonasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -343,6 +433,9 @@ public class Sistema extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Search;
+    private javax.swing.JButton cantidadPersonas;
+    private javax.swing.JButton comprarEntrada;
+    private javax.swing.JButton consultar;
     private javax.swing.JButton diamasymenosVisitado;
     private javax.swing.JButton escenariomasVisitado;
     private javax.swing.JButton escenariomenosVisitado;

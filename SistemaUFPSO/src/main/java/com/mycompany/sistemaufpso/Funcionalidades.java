@@ -4,8 +4,26 @@ import javax.swing.JOptionPane;
 
 public class Funcionalidades {
     
+    Nodo inicio; 
+    
+    Funcionalidades(){
+        inicio=null; 
+        this.entradas = new Entrada[peliculas.length]; // Inicializamos el arreglo de entradas
+        for (int i = 0; i < peliculas.length; i++) {
+            entradas[i] = new Entrada(peliculas[i]);
+        }
+    }
+    
     Escenario[] escenarios;
     String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+    
+    //para controlar la venta de peliculas en el cine:
+    Entrada[] entradas;
+    String[] peliculas = {"Venom", "Gladiador", "Avatar", "Joker", "Jurassic World"};
+    
+    
+    
+
     
     public void crearEscenario() {
         String[] nombresEscenarios = {"GYM", "Teatro bellas artes", "Canchas sintéticas", "Restaurante escolar"};
@@ -214,18 +232,161 @@ public class Funcionalidades {
         return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" el dia menos visitado es "+dias[diaMin]+" el promedio de asistestes es "+promedio;
     }
     
+    
+    
+    
     //A PARTIR DE AQUÍ INICIA EL MANEJO DE LA LISTA SIMPLE Y LA FUNCIONALIDAD DEL CINE 
     
     public String mostrarCarteleraPeli() {
+        StringBuilder cartelera = new StringBuilder("Cartelera de películas:\n");
         
-        String[] peliculas = {"Venom", "Gladiador", "Avatar", "Joker", "Jurassic World"};
-        StringBuilder cartelera = new StringBuilder("Cartelera de películas:\n"); //creo la cedena de texto
-    
-        for (int i = 0; i < peliculas.length; i++) {
-            cartelera.append((i + 1) + ". " + peliculas[i] + "\n");
+        for (int i = 0; i < entradas.length; i++) {
+            cartelera.append((i + 1) + ". " + entradas[i].getNombrePelicula() + "\n");
         }
-    
+        
         return cartelera.toString();
     }
     
+    //este metodo es para validar en caso de que el usuario ponga mal el campo 
+    public int obtenerNumeroDePeliculas() {
+        return peliculas.length;
+    }
+    
+    
+    public void venderEntrada(int indicePelicula, String documento, String nombreComprador, String fechaNacimiento, String sexo) {
+        if (indicePelicula >= 0 && indicePelicula < entradas.length) {
+            // Vendemos la entrada
+            entradas[indicePelicula].venderEntrada();
+        
+            // Creamos un nuevo nodo con los datos del comprador
+            Nodo nuevoNodo = new Nodo(documento, nombreComprador, fechaNacimiento, sexo, entradas[indicePelicula].getNombrePelicula());
+        
+            // Insertar el nodo en la lista (aquí debes tener el método para insertar el nodo en tu lista de nodos)
+            agregarNodo(nuevoNodo); // Esto depende de cómo estés manejando la lista
+
+            // Mostrar un mensaje de confirmación
+            JOptionPane.showMessageDialog(null, "Entrada vendida para: " + entradas[indicePelicula].getNombrePelicula());
+        } else {
+            JOptionPane.showMessageDialog(null, "Índice de película inválido.");
+        }
+    }
+    
+    public void agregarNodo(Nodo nuevoNodo) {
+        if (inicio == null) {
+            inicio = nuevoNodo; // Si la lista está vacía, el nuevo nodo es el primero
+        } else {
+            Nodo actual = inicio;
+            while (actual.getSiguiente() != null) {
+                actual = actual.getSiguiente(); // Recorremos la lista hasta el último nodo
+            }
+            actual.setSiguiente(nuevoNodo); // Insertamos el nuevo nodo al final
+        }
+    }
+
+
+    
+    //mostramos el numero de entradas vendidas 
+    public String mostrarEntradasVendidas() {
+        StringBuilder ventas = new StringBuilder("Número de entradas vendidas:\n");
+        
+        for (int i = 0; i < entradas.length; i++) {
+            ventas.append(entradas[i].getNombrePelicula() + ": " + entradas[i].getCantVendidas() + " entradas vendidas.\n");
+        }
+        
+        return ventas.toString();
+    }
+    
+    //asociamos con el numero de documento de la persona
+    public String mostrarEntradasCompradas(String documento) {
+        Nodo actual = inicio; 
+        StringBuilder resultado = new StringBuilder("Entradas compradas para el documento " + documento + ":\n");
+        boolean encontrado = false;
+
+        while (actual != null) {
+            if (actual.getDocumento().equals(documento)) {
+                resultado.append("Película: " + actual.getPelícula() + "\n");
+                encontrado = true;
+            }
+            actual = actual.getSiguiente();
+        }
+
+        if (!encontrado) {
+            resultado.append("No se encontraron entradas para el documento " + documento);
+        }
+
+        return resultado.toString();
+       
+    }
+    
+    
+    public int contarAdultosMayores() {
+        Nodo actual = inicio; 
+        int contador = 0;
+
+        while (actual != null) {
+           
+            int edad = actual.calcularEdad(); // Asumiendo que calcularEdad no necesita parámetros
+            if (edad > 65) {
+                contador++;
+            }
+            actual = actual.getSiguiente();
+        }
+
+        return contador;
+    }
+    
+    public int[] contarHombresYmujeres() {
+        Nodo actual = inicio; 
+        int[] conteo = new int[2]; // [0] para hombres, [1] para mujeres
+
+        while (actual != null) {
+            if (actual.getSexo().equalsIgnoreCase("masculino")) {
+                conteo[0]++;
+            } else if (actual.getSexo().equalsIgnoreCase("femenino")) {
+                conteo[1]++;
+            }
+            actual = actual.getSiguiente();
+        }
+
+        return conteo;
+    }
+    
+    public String escenarioConMasMujeres() {
+       
+        String escenarioConMasMujeres = "";
+        int maxMujeres = 0;
+
+        for (Escenario escenario : escenarios) {
+            int cantidadMujeres = contarMujeresPorEscenario(escenario);
+            if (cantidadMujeres > maxMujeres) {
+                maxMujeres = cantidadMujeres;
+                escenarioConMasMujeres = escenario.getNombre(); // Asumiendo que tienes un método getNombre()
+            }
+        }
+
+        return escenarioConMasMujeres;
+    }
+        
+    public int contarMujeresPorEscenario(Escenario escenario) {
+        
+        Nodo actual = inicio; 
+        int contador = 0;
+
+        while (actual != null) {
+        
+            if (actual.getPelícula().equals(escenario.getNombre()) && actual.getSexo().equalsIgnoreCase("Mujer")) {
+                contador++;
+            }
+            actual = actual.getSiguiente(); // Pasamos al siguiente nodo
+        }
+
+        return contador;
+    }
+
+        
+        
+        
+        
+   
+
 }
