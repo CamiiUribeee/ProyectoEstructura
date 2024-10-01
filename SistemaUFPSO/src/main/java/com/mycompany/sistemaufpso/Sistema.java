@@ -408,7 +408,7 @@ public class Sistema extends javax.swing.JFrame {
         //String mensajeEscenario = "Escenario con más mujeres: " + escenario;
     
         // Mostrar todos los resultados en una sola ventana
-        //JOptionPane.showMessageDialog(null, mensajeHombresYMujeres + "\n" + mensajeAdultosMayores + "\n" + mensajeEscenario);
+        JOptionPane.showMessageDialog(null, mensajeHombresYMujeres + "\n" + mensajeAdultosMayores + "\n");
     }//GEN-LAST:event_cantidadPersonasActionPerformed
 
     public static void main(String args[]) {
