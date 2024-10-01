@@ -1,75 +1,73 @@
-
 package com.mycompany.sistemaufpso;
+
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class Funcionalidades {
-    
-    Nodo inicio; 
-    
-    Funcionalidades(){
-        inicio=null; 
+
+    Nodo inicio;
+
+    Funcionalidades() {
+        inicio = null;
         this.entradas = new Entrada[peliculas.length]; // Inicializamos el arreglo de entradas
         for (int i = 0; i < peliculas.length; i++) {
             entradas[i] = new Entrada(peliculas[i]);
         }
     }
-    
+
     Escenario[] escenarios;
     String[] dias = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
-    
+
     //para controlar la venta de peliculas en el cine:
     Entrada[] entradas;
     String[] peliculas = {"Venom", "Gladiador", "Avatar", "Joker", "Jurassic World"};
-    
-    
-    
 
-    
     public void crearEscenario() {
         String[] nombresEscenarios = {"GYM", "Teatro bellas artes", "Canchas sintéticas", "Restaurante escolar"};
         escenarios = new Escenario[4];
-        
+
         // Datos que nos dió el profe 
-        escenarios[0] = new Escenario(nombresEscenarios[0], new int[] {23, 78, 34, 23, 45, 23});
-        escenarios[1] = new Escenario(nombresEscenarios[1], new int[] {67, 45, 67, 45, 46, 34});
-        escenarios[2] = new Escenario(nombresEscenarios[2], new int[] {89, 23, 88, 66, 55, 56});
-        escenarios[3] = new Escenario(nombresEscenarios[3], new int[] {54, 26, 48, 19, 21, 78});
+        escenarios[0] = new Escenario(nombresEscenarios[0], new int[]{23, 78, 34, 23, 45, 23});
+        escenarios[1] = new Escenario(nombresEscenarios[1], new int[]{67, 45, 67, 45, 46, 34});
+        escenarios[2] = new Escenario(nombresEscenarios[2], new int[]{89, 23, 88, 66, 55, 56});
+        escenarios[3] = new Escenario(nombresEscenarios[3], new int[]{54, 26, 48, 19, 21, 78});
     }
-    
+
     public void llenarEscenariosManual() {
-    String[] nombresEscenarios = {"GYM", "Teatro Bellas Artes", "Canchas sintéticas", "Restaurante escolar"};
-    
-    escenarios = new Escenario[4]; 
-    
-    // Recorrer cada escenario
-    for (int i = 0; i < nombresEscenarios.length; i++) {
-        int[] visitantesPorDia = new int[6]; // 6 días de la semana
-        
-        // Pedir el número de visitantes para cada día de la semana
-        for (int j = 0; j < dias.length; j++) {
-            String input = JOptionPane.showInputDialog(null, 
-                "Ingrese la cantidad de visitantes para " + nombresEscenarios[i] + " el " + dias[j] + ":");
-            
-            // Convertir el input a entero y almacenarlo en el array
-            try {
-                visitantesPorDia[j] = Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Entrada inválida, ingrese un número válido.");
-                j--; // Repetir el día si hubo un error
+        String[] nombresEscenarios = {"GYM", "Teatro Bellas Artes", "Canchas sintéticas", "Restaurante escolar"};
+
+        escenarios = new Escenario[4];
+
+        // Recorrer cada escenario
+        for (int i = 0; i < nombresEscenarios.length; i++) {
+            int[] visitantesPorDia = new int[6]; // 6 días de la semana
+
+            // Pedir el número de visitantes para cada día de la semana
+            for (int j = 0; j < dias.length; j++) {
+                String input = JOptionPane.showInputDialog(null,
+                        "Ingrese la cantidad de visitantes para " + nombresEscenarios[i] + " el " + dias[j] + ":");
+
+                // Convertir el input a entero y almacenarlo en el array
+                try {
+                    visitantesPorDia[j] = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Entrada inválida, ingrese un número válido.");
+                    j--; // Repetir el día si hubo un error
+                }
             }
+
+            // Crear un nuevo escenario con los valores ingresados
+            escenarios[i] = new Escenario(nombresEscenarios[i], visitantesPorDia);
         }
-        
-        // Crear un nuevo escenario con los valores ingresados
-        escenarios[i] = new Escenario(nombresEscenarios[i], visitantesPorDia);
+
+        JOptionPane.showMessageDialog(null, "Matriz de visitantes llenada correctamente.");
     }
-    
-    JOptionPane.showMessageDialog(null, "Matriz de visitantes llenada correctamente.");
-}
-    
+
     public String EscenarioMasVisitado() {
         Escenario MasVisitado = null;
         int maxVisitantes = 0;
-        
+
         for (Escenario escenario : escenarios) {
             int totalVisitantes = escenario.getTotalVisitantes();
             if (totalVisitantes > maxVisitantes) {
@@ -77,10 +75,10 @@ public class Funcionalidades {
                 MasVisitado = escenario;
             }
         }
-        
+
         return "1. El escenario más visitado es " + MasVisitado.getNombre() + " con " + maxVisitantes + " visitantes.\n";
     }
-    
+
     public String[][] getDatosTabla() {
         // Devuelve los datos en el formato necesario para JTable
         String[][] datos = new String[escenarios.length][7]; // 4 escenarios, 7 columnas (nombre + lunes a sábado)
@@ -94,7 +92,7 @@ public class Funcionalidades {
         }
         return datos;
     }
-    
+
     // Día más visitado en el restaurante escolar
     public String DiaMasVisitadoRestaurante() {
         Escenario restaurante = escenarios[3]; // Restaurante es el cuarto escenario
@@ -108,8 +106,8 @@ public class Funcionalidades {
         }
         return "2. El día más visitado del Restaurante es " + dias[diaMax] + " con " + visitantes[diaMax] + " visitantes.\n";
     }
-     
-     // Escenario menos visitado durante toda la semana
+
+    // Escenario menos visitado durante toda la semana
     public String escenarioMenosVisitado() {
         Escenario menosVisitado = null;
         int minVisitantes = Integer.MAX_VALUE;
@@ -124,30 +122,29 @@ public class Funcionalidades {
 
         return "3. El escenario menos visitado es " + menosVisitado.getNombre() + " con " + minVisitantes + " visitantes.\n";
     }
-    
-     // Total de personas que visitan todos los escenarios durante la semana
+
+    // Total de personas que visitan todos los escenarios durante la semana
     public String TotalVisitantesSemana() {
         int total = 0;
         for (Escenario escenario : escenarios) {
             total += escenario.getTotalVisitantes();
         }
-        
-        return "4. El total de visitantes en la semana fue de "+total +".\n";
+
+        return "4. El total de visitantes en la semana fue de " + total + ".\n";
     }
+
     // Promedio de visitantes en la semana
     public String PromedioVisitantesSemana() {
         double total = 0;
         for (Escenario escenario : escenarios) {
             total += escenario.getTotalVisitantes();
         }
-        
-        
+
         int numDias = escenarios[0].getVisitantesPorDia().length; // Número de días en la semana
         total = total / numDias;
-        return "5. El promedio de visistantes es: "+total +".\n";
+        return "5. El promedio de visistantes es: " + total + ".\n";
     }
-    
-    
+
     // Día de la semana que más tiene visitantes y el día que menos tiene
     public String DiaConMasYMenosVisitantes() {
         int[] totalPorDia = new int[6]; // Para los 6 días de la semana
@@ -171,7 +168,7 @@ public class Funcionalidades {
             }
         }
 
-        return "6. El día con más visitantes es " + dias[diaMax] + " y el día con menos visitantes es " + dias[diaMin]+".\n";
+        return "6. El día con más visitantes es " + dias[diaMax] + " y el día con menos visitantes es " + dias[diaMin] + ".\n";
     }
 
     // Día de la semana y escenario más y menos visitado
@@ -199,68 +196,62 @@ public class Funcionalidades {
             }
         }
 
-        return "7. El escenario más visitado es " + escenarioMax.getNombre() + " en " + dias[diaMax] + 
-               ", y el escenario menos visitado es " + escenarioMin.getNombre() + " en " + dias[diaMin] +".\n";
+        return "7. El escenario más visitado es " + escenarioMax.getNombre() + " en " + dias[diaMax]
+                + ", y el escenario menos visitado es " + escenarioMin.getNombre() + " en " + dias[diaMin] + ".\n";
     }
-    
-    public String EscenarioMasYmenosVisitado(){
+
+    public String EscenarioMasYmenosVisitado() {
         Escenario teatro = escenarios[1]; // Teatro es el segundo escenario
         int[] visitantes = teatro.getVisitantesPorDia();
         int diaMax = 0;
         int diaMin = 0;
-        
+
         for (int i = 1; i < visitantes.length; i++) {
             if (visitantes[i] > visitantes[diaMax]) {
                 diaMax = i;
             }
         }
-        
+
         for (int i = 1; i < visitantes.length; i++) {
             if (visitantes[i] < visitantes[diaMax]) {
                 diaMin = i;
             }
         }
-        
+
         int totalVisitantes = 0;
         for (int i = 0; i < visitantes.length; i++) {
             totalVisitantes += visitantes[i];
         }
 
-    
         double promedio = totalVisitantes / (double) visitantes.length;
-        
-        return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" ,el dia menos visitado es "+dias[diaMin]+" y el promedio de asistentes es "+promedio;
+
+        return "8. El teatro de bellas artes. El dia mas visitado es " + dias[diaMax] + " ,el dia menos visitado es " + dias[diaMin] + " y el promedio de asistentes es " + promedio;
     }
-    
-    
-    
-    
+
     //A PARTIR DE AQUÍ INICIA EL MANEJO DE LA LISTA SIMPLE Y LA FUNCIONALIDAD DEL CINE 
-    
     public String mostrarCarteleraPeli() {
         StringBuilder cartelera = new StringBuilder("Cartelera de películas:\n");
-        
+
         for (int i = 0; i < entradas.length; i++) {
             cartelera.append((i + 1) + ". " + entradas[i].getNombrePelicula() + "\n");
         }
-        
+
         return cartelera.toString();
     }
-    
+
     //este metodo es para validar en caso de que el usuario ponga mal el campo 
     public int obtenerNumeroDePeliculas() {
         return peliculas.length;
     }
-    
-    
+
     public void venderEntrada(int indicePelicula, String documento, String nombreComprador, String fechaNacimiento, String sexo) {
         if (indicePelicula >= 0 && indicePelicula < entradas.length) {
             // Vendemos la entrada
             entradas[indicePelicula].venderEntrada();
-        
+
             // Creamos un nuevo nodo con los datos del comprador
             Nodo nuevoNodo = new Nodo(documento, nombreComprador, fechaNacimiento, sexo, entradas[indicePelicula].getNombrePelicula());
-        
+
             // Insertar el nodo en la lista (aquí debes tener el método para insertar el nodo en tu lista de nodos)
             agregarNodo(nuevoNodo); // Esto depende de cómo estés manejando la lista
 
@@ -270,7 +261,7 @@ public class Funcionalidades {
             JOptionPane.showMessageDialog(null, "Índice de película inválido.");
         }
     }
-    
+
     public void agregarNodo(Nodo nuevoNodo) {
         if (inicio == null) {
             inicio = nuevoNodo; // Si la lista está vacía, el nuevo nodo es el primero
@@ -283,22 +274,20 @@ public class Funcionalidades {
         }
     }
 
-
-    
     //mostramos el numero de entradas vendidas 
     public String mostrarEntradasVendidas() {
         StringBuilder ventas = new StringBuilder("Número de entradas vendidas:\n");
-        
+
         for (int i = 0; i < entradas.length; i++) {
             ventas.append(entradas[i].getNombrePelicula() + ": " + entradas[i].getCantVendidas() + " entradas vendidas.\n");
         }
-        
+
         return ventas.toString();
     }
-    
+
     //asociamos con el numero de documento de la persona
     public String mostrarEntradasCompradas(String documento) {
-        Nodo actual = inicio; 
+        Nodo actual = inicio;
         StringBuilder resultado = new StringBuilder("Entradas compradas para el documento " + documento + ":\n");
         boolean encontrado = false;
 
@@ -315,12 +304,11 @@ public class Funcionalidades {
         }
 
         return resultado.toString();
-       
+
     }
-    
-    
+
     public int contarAdultosMayores() {
-        Nodo actual = inicio; 
+        Nodo actual = inicio;
         int contador = 0;
 
         while (actual != null) {
@@ -334,9 +322,8 @@ public class Funcionalidades {
         return contador;
     }
 
-    
     public int[] contarHombresYmujeres() {
-        Nodo actual = inicio; 
+        Nodo actual = inicio;
         int[] conteo = new int[2]; // [0] para hombres, [1] para mujeres
 
         while (actual != null) {
@@ -351,7 +338,7 @@ public class Funcionalidades {
         return conteo;
     }
 
-    
+    /*
     public String escenarioConMasMujeres() {
         String escenarioConMasMujeres = "";
         int maxMujeres = 0;
@@ -384,13 +371,36 @@ public class Funcionalidades {
 
         return contador;
     }
+    
+     */
+    public String escenarioConMasMujeres() {
+        String escenarioConMasMujeres = "";
+        int maxMujeres = 0;
+        // map recorre los nodosn y almacane un par clve-valor
 
+        //HashMap utiliza una tabla de disperción (matriz de tamaño fijo)
+        Map<String, Integer> mujeresPorEscenario = new HashMap<>();
 
+        Nodo actual = inicio;
 
-        
-        
-        
-        
-   
+        while (actual != null) {
+            // Usamos .trim() para eliminar posibles espacios en blanco
+            if (actual.getSexo().trim().equalsIgnoreCase("F")) {
+                String escenario = actual.getPelícula();
+                //recupera el comteo actual de mujeres para cada escenario y si el escenario no esta en el mapa pone valor cero
+                int mujeres = mujeresPorEscenario.getOrDefault(escenario, 0) + 1;
+                //actualiza el recuento
+                mujeresPorEscenario.put(escenario, mujeres);
+
+                if (mujeres > maxMujeres) {
+                    maxMujeres = mujeres;
+                    escenarioConMasMujeres = escenario;
+                }
+            }
+            actual = actual.getSiguiente(); // Pasamos al siguiente nodo
+        }
+
+        return escenarioConMasMujeres.isEmpty() ? "No se encontraron mujeres en ningún escenario." : escenarioConMasMujeres;
+    }
 
 }
