@@ -404,11 +404,11 @@ public class Sistema extends javax.swing.JFrame {
         String mensajeAdultosMayores = "Total de adultos mayores a 65 años: " + totalAdultosMayores;
     
         // Escenario con más mujeres
-        String escenario = objfunciones.escenarioConMasMujeres();
-        String mensajeEscenario = "Escenario con más mujeres: " + escenario;
+        //String escenario = objfunciones.escenarioConMasMujeres();
+        //String mensajeEscenario = "Escenario con más mujeres: " + escenario;
     
         // Mostrar todos los resultados en una sola ventana
-        JOptionPane.showMessageDialog(null, mensajeHombresYMujeres + "\n" + mensajeAdultosMayores + "\n" + mensajeEscenario);
+        //JOptionPane.showMessageDialog(null, mensajeHombresYMujeres + "\n" + mensajeAdultosMayores + "\n" + mensajeEscenario);
     }//GEN-LAST:event_cantidadPersonasActionPerformed
 
     public static void main(String args[]) {
