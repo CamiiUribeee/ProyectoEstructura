@@ -225,7 +225,7 @@ public class Funcionalidades {
 
         double promedio = totalVisitantes / (double) visitantes.length;
 
-        return "8. El teatro de bellas artes. El dia mas visitado es " + dias[diaMax] + " ,el dia menos visitado es " + dias[diaMin] + " y el promedio de asistentes es " + promedio;
+        return "8. El teatro de bellas artes. El dia mas visitado es " + dias[diaMax] + " ,el dia menos visitado es " + dias[diaMin] + " y el promedio de asistentes es " + promedio+ ".\n";
     }
 
     //A PARTIR DE AQUÍ INICIA EL MANEJO DE LA LISTA SIMPLE Y LA FUNCIONALIDAD DEL CINE 
@@ -373,34 +373,5 @@ public class Funcionalidades {
     }
     
      */
-    public String escenarioConMasMujeres() {
-        String escenarioConMasMujeres = "";
-        int maxMujeres = 0;
-        // map recorre los nodosn y almacane un par clve-valor
-
-        //HashMap utiliza una tabla de disperción (matriz de tamaño fijo)
-        Map<String, Integer> mujeresPorEscenario = new HashMap<>();
-
-        Nodo actual = inicio;
-
-        while (actual != null) {
-            // Usamos .trim() para eliminar posibles espacios en blanco
-            if (actual.getSexo().trim().equalsIgnoreCase("F")) {
-                String escenario = actual.getPelícula();
-                //recupera el comteo actual de mujeres para cada escenario y si el escenario no esta en el mapa pone valor cero
-                int mujeres = mujeresPorEscenario.getOrDefault(escenario, 0) + 1;
-                //actualiza el recuento
-                mujeresPorEscenario.put(escenario, mujeres);
-
-                if (mujeres > maxMujeres) {
-                    maxMujeres = mujeres;
-                    escenarioConMasMujeres = escenario;
-                }
-            }
-            actual = actual.getSiguiente(); // Pasamos al siguiente nodo
-        }
-
-        return escenarioConMasMujeres.isEmpty() ? "No se encontraron mujeres en ningún escenario." : escenarioConMasMujeres;
-    }
 
 }
