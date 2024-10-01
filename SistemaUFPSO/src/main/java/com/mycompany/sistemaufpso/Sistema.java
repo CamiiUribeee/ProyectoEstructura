@@ -261,7 +261,7 @@ public class Sistema extends javax.swing.JFrame {
     private void tablaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tablaDatosActionPerformed
    
         String[][] datos = objfunciones.getDatosTabla(); 
-        String[] columnas = {"Escenario", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+        String[] columnas = {"Escenario", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
 
         // Actualiza el modelo de la tabla con los datos
         tabla.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
@@ -359,8 +359,13 @@ public class Sistema extends javax.swing.JFrame {
         String sexo = JOptionPane.showInputDialog("Ingrese su sexo (M/F):");
 
         try {
+             String cartelera = objfunciones.mostrarCarteleraPeli();
+        
+        // Mostrar la cartelera
+        JOptionPane.showMessageDialog(null, cartelera, "Cartelera de Películas", JOptionPane.INFORMATION_MESSAGE);
+        
             // Solicitar el índice de la película
-            int indice = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de la película:"));
+            int indice = validateIntInput(JOptionPane.showInputDialog("Ingrese el número de la película:"));
 
             // Validamos que el índice sea correcto
             if (indice < 1 || indice > objfunciones.obtenerNumeroDePeliculas()) {
@@ -436,6 +441,25 @@ public class Sistema extends javax.swing.JFrame {
                 new Sistema().setVisible(true);
             }
         });
+    }
+    
+     public int validateIntInput(String str) {
+        while (isNumber(str)==false) {
+            str = JOptionPane.showInputDialog("Ingrese un número ENTERO válido (sin espacios):");
+        }
+        return Integer.parseInt(str);
+    }
+    
+    public static boolean isNumber(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

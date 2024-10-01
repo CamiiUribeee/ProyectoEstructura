@@ -15,7 +15,7 @@ public class Funcionalidades {
     }
     
     Escenario[] escenarios;
-    String[] dias = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+    String[] dias = {"lunes", "martes", "miércoles", "jueves", "viernes", "sábado"};
     
     //para controlar la venta de peliculas en el cine:
     Entrada[] entradas;
@@ -229,7 +229,7 @@ public class Funcionalidades {
     
         double promedio = totalVisitantes / (double) visitantes.length;
         
-        return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" el dia menos visitado es "+dias[diaMin]+" el promedio de asistestes es "+promedio;
+        return "8. El teatro de bellas artes. El dia mas visitado es "+dias[diaMax]+" ,el dia menos visitado es "+dias[diaMin]+" y el promedio de asistentes es "+promedio;
     }
     
     
