@@ -1,0 +1,10 @@
+12345678,natural,Carmen,carmejulia@gmail.com,3214567890,5000
+87654321,juridica,Empresa XYZ,empresa_xyz@gmail.com,3112345678,15000
+23456789,natural,Juan Perez,juanp@gmail.com,3209876543,2000
+34567890,natural,Ana Lopez,ana.lopez@gmail.com,3101234567,3000
+45678901,natural,Maria Garcia,maria.g@gmail.com,3122345678,4000
+56789012,juridica,Empresa ABC,empresa_abc@gmail.com,3178901234,25000
+67890123,natural,Luis Fernandez,luisf@gmail.com,3167890123,3500
+78901234,juridica,Empresa DEF,empresa_def@gmail.com,3189012345,18000
+89012345,natural,Carla Mendoza,carla.mendoza@gmail.com,3134567890,2700
+90123456,natural,Pedro Alvarado,pedro.a@gmail.com,3156789012,1900
