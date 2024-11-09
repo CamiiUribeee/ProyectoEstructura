@@ -6,11 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 
 
 public class Bancoo {
     private ArrayList<Cliente> clientes = new ArrayList<>();
+    private Queue<Cliente> colaPrioridades = new LinkedList<>();  //para el inciso 3: las colas 
+    private Queue<Cliente> colaNuevosClientes = new LinkedList<>();
 
     public void cargarClientesDesdeArchivo() {
         
@@ -48,5 +52,29 @@ public class Bancoo {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al leer el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+    
+    
+    //COLAS:
+    // Métodos para agregar a las colas
+    public void agregarAColaPrioridad(Cliente cliente) {
+        colaPrioridades.add(cliente);
+    }
+
+    public void agregarAColaNuevosClientes(Cliente cliente) {
+        colaNuevosClientes.add(cliente);
+    }
+
+    // Métodos para mostrar las colas
+    public Queue<Cliente> getColaPrioridades() {
+        return colaPrioridades;
+    }
+
+    public Queue<Cliente> getColaNuevosClientes() {
+        return colaNuevosClientes;
     }
 }
