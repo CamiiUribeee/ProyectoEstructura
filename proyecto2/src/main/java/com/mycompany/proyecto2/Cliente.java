@@ -7,10 +7,10 @@ public class Cliente {
    private String tipoCliente;
    private String nombre;
    private String correo;
-   private int telefono;
+   private String telefono;
    private double saldo;
 
-    public Cliente(String documento, String tipoCliente, String nombre, String correo, int telefono, double saldo) {
+    public Cliente(String documento, String tipoCliente, String nombre, String correo, String telefono, double saldo) {
         this.documento = documento;
         this.tipoCliente = tipoCliente;
         this.nombre = nombre;
@@ -51,11 +51,11 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

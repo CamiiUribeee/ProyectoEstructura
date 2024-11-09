@@ -4,8 +4,9 @@ package com.mycompany.proyecto2;
 
 
 public class Menu extends javax.swing.JFrame {
-
-   
+    
+    Bancoo banco = new Bancoo(); 
+    
     public Menu() {
         initComponents();
     }
@@ -58,6 +59,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void LoadClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadClientsActionPerformed
         // TODO add your handling code here:
+        banco.cargarClientesDesdeArchivo();
+        
     }//GEN-LAST:event_LoadClientsActionPerformed
 
     public static void main(String args[]) {
