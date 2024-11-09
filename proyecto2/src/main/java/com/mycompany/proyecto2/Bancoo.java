@@ -13,8 +13,8 @@ public class Bancoo {
     private ArrayList<Cliente> clientes = new ArrayList<>();
 
     public void cargarClientesDesdeArchivo() {
-        // Ruta fija al archivo .txt en tu proyecto
-        String nombreArchivo = "clientes.txt"; // La ruta o nombre del archivo que estés utilizando.
+        
+        String nombreArchivo = "clientes.txt"; 
     
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
@@ -22,7 +22,7 @@ public class Bancoo {
                 try {
                     String[] datos = linea.split(",");
                     if (datos.length == 6) { 
-                        // Crear un cliente con los datos del archivo
+                        
                         Cliente cliente = new Cliente(
                             datos[0].trim(),
                             datos[1].trim(),
@@ -33,7 +33,7 @@ public class Bancoo {
                         );
                         clientes.add(cliente);
                         
-                        // Imprimir información del cliente cargado en consola
+                        // para imprimir los clientes en consola
                         System.out.println("Cliente cargado: " + cliente.getNombre() + ", " + cliente.getDocumento());
                     } else {
                         JOptionPane.showMessageDialog(null, "Formato incorrecto: " + linea, "Error", JOptionPane.ERROR_MESSAGE);
