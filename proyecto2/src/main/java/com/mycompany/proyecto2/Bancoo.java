@@ -77,4 +77,52 @@ public class Bancoo {
     public Queue<Cliente> getColaNuevosClientes() {
         return colaNuevosClientes;
     }
+    
+    //Metodos para ver el cliente al frente de la cola y el segundo 
+    public void verColaprioridad(){
+        if(colaPrioridades.isEmpty() == true){
+            JOptionPane.showMessageDialog(null, "No hay turnos en la cola");
+        } else {
+            JOptionPane.showMessageDialog(null, "Se esta atendiendo a: "+colaPrioridades.peek().getNombre() + ", de documento: "+colaPrioridades.peek().getDocumento());
+            if (colaPrioridades.size() >= 2) {
+                Cliente segundoElemento = ((LinkedList<Cliente>) colaPrioridades).get(1);
+                JOptionPane.showMessageDialog(null, "El segundo turno a atender es: "+segundoElemento.getNombre() + ", de documento: "+segundoElemento.getDocumento());
+            } else {
+                JOptionPane.showMessageDialog(null, "Solamente hay un cliente en la lista, asi que el segundo no se puede ver");
+            }
+        }
+    }
+    
+    public void verColanopreferencial(){
+        if(colaNuevosClientes.isEmpty() == true){
+            JOptionPane.showMessageDialog(null, "No hay turnos en la cola");
+        } else {
+            JOptionPane.showMessageDialog(null, "Se esta atendiendo a: "+colaNuevosClientes.peek().getNombre() + ", de documento: "+colaNuevosClientes.peek().getDocumento());
+            if (colaNuevosClientes.size() >= 2) {
+                Cliente segundoElemento = ((LinkedList<Cliente>) colaNuevosClientes).get(1);
+                JOptionPane.showMessageDialog(null, "El segundo turno a atender es: "+segundoElemento.getNombre() + ", de documento: "+segundoElemento.getDocumento());
+            } else {
+                JOptionPane.showMessageDialog(null, "Solamente hay un cliente en la lista, asi que el segundo no se puede ver");
+            }
+        }
+    }
+    
+    //Metodos para atender a las colas
+    public void atenderPreferencial(){
+        if(colaPrioridades.isEmpty() == true){
+            JOptionPane.showMessageDialog(null, "No hay turnos en la cola");
+        } else {
+            Cliente firstElement = colaPrioridades.poll();
+            JOptionPane.showMessageDialog(null, "Cliente atendido: "+firstElement.getNombre());
+        }
+    }
+    
+    public void atenderNopreferencial(){
+        if(colaNuevosClientes.isEmpty() == true){
+            JOptionPane.showMessageDialog(null, "No hay turnos en la cola");
+        } else {
+            Cliente firstElement = colaNuevosClientes.poll();
+            JOptionPane.showMessageDialog(null, "Cliente atendido: "+firstElement.getNombre());
+        }
+    }
 }

@@ -1,6 +1,8 @@
 
 package com.mycompany.proyecto2;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +29,16 @@ public class Menu extends javax.swing.JFrame {
         tittle = new javax.swing.JLabel();
         LoadClients = new javax.swing.JButton();
         solicitarTurno = new javax.swing.JButton();
+        colaPreferencial = new javax.swing.JButton();
+        colaNopreferencial = new javax.swing.JButton();
+        atenderPreferencial = new javax.swing.JButton();
+        atenderNopreferencial = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        imprimirPreferencial = new javax.swing.JButton();
+        ImprimirNopreferencial = new javax.swing.JButton();
+        turnosPreferencial = new javax.swing.JButton();
+        turnosNopreferencial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,29 +58,134 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        colaPreferencial.setText("Turno en Cola preferencial");
+        colaPreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colaPreferencialActionPerformed(evt);
+            }
+        });
+
+        colaNopreferencial.setText("Turno en Cola no preferencial");
+        colaNopreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colaNopreferencialActionPerformed(evt);
+            }
+        });
+
+        atenderPreferencial.setText("Atender Cola preferencial");
+        atenderPreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atenderPreferencialActionPerformed(evt);
+            }
+        });
+
+        atenderNopreferencial.setText("Atender Cola no preferencial");
+        atenderNopreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atenderNopreferencialActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Cola preferencial");
+
+        jLabel2.setText("Cola No preferencial");
+
+        imprimirPreferencial.setText("Imprimir Cola preferencial");
+        imprimirPreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimirPreferencialActionPerformed(evt);
+            }
+        });
+
+        ImprimirNopreferencial.setText("Imprimir Cola No preferencial");
+        ImprimirNopreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirNopreferencialActionPerformed(evt);
+            }
+        });
+
+        turnosPreferencial.setText("Turnos para ser atendidos");
+        turnosPreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                turnosPreferencialActionPerformed(evt);
+            }
+        });
+
+        turnosNopreferencial.setText("Turnos para ser atendidos");
+        turnosNopreferencial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                turnosNopreferencialActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(LoadClients)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tittle)
-                    .addComponent(solicitarTurno))
-                .addContainerGap(236, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LoadClients)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jLabel1)))
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(solicitarTurno)
+                                    .addComponent(jLabel2)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(turnosPreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(colaPreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                    .addComponent(atenderPreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(imprimirPreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(colaNopreferencial)
+                                    .addComponent(ImprimirNopreferencial)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(turnosNopreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(atenderNopreferencial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addComponent(tittle)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(13, 13, 13)
                 .addComponent(tittle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoadClients)
                     .addComponent(solicitarTurno))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(colaPreferencial)
+                    .addComponent(colaNopreferencial))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(turnosPreferencial)
+                            .addComponent(turnosNopreferencial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(atenderPreferencial))
+                    .addComponent(atenderNopreferencial, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImprimirNopreferencial)
+                    .addComponent(imprimirPreferencial))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -145,6 +262,124 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_solicitarTurnoActionPerformed
 
+    private void colaPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colaPreferencialActionPerformed
+        // TODO add your handling code here:
+        banco.verColaprioridad();
+    }//GEN-LAST:event_colaPreferencialActionPerformed
+
+    private void colaNopreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colaNopreferencialActionPerformed
+        // TODO add your handling code here:
+        banco.verColanopreferencial();
+    }//GEN-LAST:event_colaNopreferencialActionPerformed
+
+    private void atenderPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderPreferencialActionPerformed
+        // TODO add your handling code here:
+        banco.atenderPreferencial();
+    }//GEN-LAST:event_atenderPreferencialActionPerformed
+
+    private void atenderNopreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atenderNopreferencialActionPerformed
+        // TODO add your handling code here:
+        banco.atenderNopreferencial();
+    }//GEN-LAST:event_atenderNopreferencialActionPerformed
+
+    private void imprimirPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirPreferencialActionPerformed
+        // TODO add your handling code here:
+        Queue<Cliente> colaPrioridades = new LinkedList<>();
+        colaPrioridades = banco.getColaPrioridades();
+        
+        if (!colaPrioridades.isEmpty()){
+            StringBuilder mensaje = new StringBuilder();
+            for (Cliente cliente : colaPrioridades) {
+                mensaje.append("Documento: ").append(cliente.getDocumento()).append("\n")
+                       .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
+                       .append("Nombre: ").append(cliente.getNombre()).append("\n")
+                       .append("Correo: ").append(cliente.getCorreo()).append("\n")
+                       .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
+                       .append("Saldo: ").append(cliente.getSaldo()).append("\n")
+                       .append("------------------------\n");
+            }
+            JOptionPane.showMessageDialog(null, mensaje);
+        } else {
+            JOptionPane.showMessageDialog(null, "La cola esta vacia");
+        }
+    }//GEN-LAST:event_imprimirPreferencialActionPerformed
+
+    private void ImprimirNopreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirNopreferencialActionPerformed
+        // TODO add your handling code here:
+        Queue<Cliente> colaNuevosClientes = new LinkedList<>();
+        colaNuevosClientes = banco.getColaNuevosClientes();
+        
+        if (!colaNuevosClientes.isEmpty()){
+            StringBuilder mensaje = new StringBuilder();
+            for (Cliente cliente : colaNuevosClientes) {
+                mensaje.append("Documento: ").append(cliente.getDocumento()).append("\n")
+                       .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
+                       .append("Nombre: ").append(cliente.getNombre()).append("\n")
+                       .append("Correo: ").append(cliente.getCorreo()).append("\n")
+                       .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
+                       .append("Saldo: ").append(cliente.getSaldo()).append("\n")
+                       .append("------------------------\n");
+            }
+            JOptionPane.showMessageDialog(null, mensaje);
+        } else {
+            JOptionPane.showMessageDialog(null, "La cola esta vacia");
+        }
+    }//GEN-LAST:event_ImprimirNopreferencialActionPerformed
+
+    private void turnosPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turnosPreferencialActionPerformed
+        // TODO add your handling code here:
+        Queue<Cliente> colaPrioridades = new LinkedList<>();
+        colaPrioridades = banco.getColaPrioridades();
+        int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese su codigo para saber cuantos turnos faltan para que lo atiendan"));
+        int contador = 0;
+        boolean encontrado = false;
+        
+        if (!colaPrioridades.isEmpty()){
+            for (Cliente cliente : colaPrioridades) {
+                if(Integer.parseInt(cliente.getDocumento())==documento){
+                    encontrado = true; 
+                    break;
+                }
+                contador++;
+            }
+            
+            if (encontrado) {
+                JOptionPane.showMessageDialog(null, "Faltan " + contador + " turnos para que lo atiendan.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El documento ingresado no se encuentra en la cola.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "La cola esta vacia");
+        }
+    }//GEN-LAST:event_turnosPreferencialActionPerformed
+
+    private void turnosNopreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turnosNopreferencialActionPerformed
+        // TODO add your handling code here:
+        Queue<Cliente> colaNuevosClientes = new LinkedList<>();
+        colaNuevosClientes = banco.getColaNuevosClientes();
+        int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese su codigo para saber cuantos turnos faltan para que lo atiendan"));
+        int contador = 0;
+        boolean encontrado = false;
+        
+        if (!colaNuevosClientes.isEmpty()){
+            for (Cliente cliente : colaNuevosClientes) {
+                if(Integer.parseInt(cliente.getDocumento())==documento){
+                    encontrado = true; 
+                    break;
+                }
+                contador++;
+            }
+            
+            if (encontrado) {
+                JOptionPane.showMessageDialog(null, "Faltan " + contador + " turnos para que lo atiendan.");
+            } else {
+                JOptionPane.showMessageDialog(null, "El documento ingresado no se encuentra en la cola.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "La cola esta vacia");
+        }
+    }//GEN-LAST:event_turnosNopreferencialActionPerformed
+
     public Cliente buscarClientePorDocumento(String documento) {
     
         for (Cliente cliente : banco.getClientes()) {
@@ -219,8 +454,18 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ImprimirNopreferencial;
     private javax.swing.JButton LoadClients;
+    private javax.swing.JButton atenderNopreferencial;
+    private javax.swing.JButton atenderPreferencial;
+    private javax.swing.JButton colaNopreferencial;
+    private javax.swing.JButton colaPreferencial;
+    private javax.swing.JButton imprimirPreferencial;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton solicitarTurno;
     private javax.swing.JLabel tittle;
+    private javax.swing.JButton turnosNopreferencial;
+    private javax.swing.JButton turnosPreferencial;
     // End of variables declaration//GEN-END:variables
 }

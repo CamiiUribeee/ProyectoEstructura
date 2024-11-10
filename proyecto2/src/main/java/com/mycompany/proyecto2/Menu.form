@@ -23,29 +23,91 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="LoadClients" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tittle" min="-2" max="-2" attributes="0"/>
-                  <Component id="solicitarTurno" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="LoadClients" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="solicitarTurno" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="turnosPreferencial" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="colaPreferencial" alignment="0" pref="177" max="32767" attributes="0"/>
+                                  <Component id="atenderPreferencial" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="imprimirPreferencial" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="colaNopreferencial" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ImprimirNopreferencial" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="turnosNopreferencial" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="atenderNopreferencial" alignment="0" pref="186" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
+                      <Component id="tittle" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="236" max="32767" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="tittle" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="LoadClients" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="solicitarTurno" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="211" max="32767" attributes="0"/>
+              <EmptySpace pref="271" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="colaPreferencial" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="colaNopreferencial" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="turnosPreferencial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="turnosNopreferencial" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="atenderPreferencial" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="atenderNopreferencial" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="ImprimirNopreferencial" min="-2" max="-2" attributes="0"/>
+                  <Component id="imprimirPreferencial" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +132,80 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solicitarTurnoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="colaPreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Turno en Cola preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colaPreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="colaNopreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Turno en Cola no preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colaNopreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="atenderPreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Atender Cola preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atenderPreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="atenderNopreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Atender Cola no preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atenderNopreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cola preferencial"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cola No preferencial"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="imprimirPreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Imprimir Cola preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imprimirPreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="ImprimirNopreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Imprimir Cola No preferencial"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ImprimirNopreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="turnosPreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Turnos para ser atendidos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="turnosPreferencialActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="turnosNopreferencial">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Turnos para ser atendidos"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="turnosNopreferencialActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
