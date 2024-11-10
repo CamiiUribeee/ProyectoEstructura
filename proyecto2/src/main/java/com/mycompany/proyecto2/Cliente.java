@@ -8,9 +8,9 @@ public class Cliente {
    private String nombre;
    private String correo;
    private String telefono;
-   private double saldo;
+   private String saldo;
 
-    public Cliente(String documento, String tipoCliente, String nombre, String correo, String telefono, double saldo) {
+    public Cliente(String documento, String tipoCliente, String nombre, String correo, String telefono, String saldo) {
         this.documento = documento;
         this.tipoCliente = tipoCliente;
         this.nombre = nombre;
@@ -59,13 +59,15 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public double getSaldo() {
+    public String getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
+    public void setSaldo(String saldo) {
         this.saldo = saldo;
     }
+
+
    
    
 }

@@ -1,4 +1,3 @@
-
 package com.mycompany.proyecto2;
 
 import java.util.LinkedList;
@@ -8,20 +7,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class Menu extends javax.swing.JFrame {
-    
-    Bancoo banco = new Bancoo(); 
+
+    Bancoo banco = new Bancoo();
     private JTable table;  //PARA LA TABLA 
     private DefaultTableModel tableModel; //PARA LA TABLA
-    
+
     public Menu() {
         initComponents();
         initializeTable();
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,7 +160,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoadClients)
                     .addComponent(solicitarTurno))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,8 +190,7 @@ public class Menu extends javax.swing.JFrame {
     private void LoadClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadClientsActionPerformed
         // TODO add your handling code here:
         banco.cargarClientesDesdeArchivo();
-        
-        
+
         // Llenar la tabla con los datos del arreglo
         for (Cliente cliente : banco.getClientes()) {
             Object[] rowData = {
@@ -210,56 +205,68 @@ public class Menu extends javax.swing.JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Datos cargados en la tabla.");
-        
+
     }//GEN-LAST:event_LoadClientsActionPerformed
 
     private void solicitarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitarTurnoActionPerformed
-        
+
         String documento = JOptionPane.showInputDialog(null, "Ingrese el número de documento:", "Solicitar Turno", JOptionPane.PLAIN_MESSAGE);
-    
-        
+
         //VALIDACIONES DE TODO ACÁ:
-        
         // Validar documento
         if (documento == null || documento.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "El documento no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // Validar que el documento sea un número
         if (!documento.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "El documento debe contener solo números.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        
         Cliente cliente = buscarClientePorDocumento(documento);
-    
+
         if (cliente != null) {
-            
+
             banco.agregarAColaPrioridad(cliente);
             JOptionPane.showMessageDialog(null, "Cliente con documento " + documento + " agregado a la cola de prioridades.");
-        
+
         } else {
-            
+
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
             String correo = JOptionPane.showInputDialog("Ingrese el correo del cliente:");
             String telefono = JOptionPane.showInputDialog("Ingrese el teléfono del cliente:");
-            double saldo = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el saldo del cliente:"));
-        
+
+            if (validarTelefono(telefono)) {
+                int telefonov = validateIntInput(telefono);
+                JOptionPane.showMessageDialog(null, "Teléfono válido");
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono válido.");
+            }
+
+            String saldo = (JOptionPane.showInputDialog("Ingrese el saldo del cliente:"));
+
+            if (validarSaldo(saldo)) {
+            double saldov = validateDoubleInput(saldo); 
+            JOptionPane.showMessageDialog(null, "Saldo válido");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un saldo válido.");
+        }
+
             // Creamos el cliente nuevo 
             Cliente nuevoCliente = new Cliente(documento, "nuevo", nombre, correo, telefono, saldo);
-        
+
             // cuando creamos el nuevo cliente, se agrega a la cola 
             banco.agregarAColaNuevosClientes(nuevoCliente);
-        
+
             // y también se agrega al arreglo de clientes
             banco.getClientes().add(nuevoCliente);
-        
+
             JOptionPane.showMessageDialog(null, "Nuevo cliente registrado y agregado a la cola de nuevos clientes.");
         }
-          
-        
+
+
     }//GEN-LAST:event_solicitarTurnoActionPerformed
 
     private void colaPreferencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colaPreferencialActionPerformed
@@ -286,17 +293,17 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Queue<Cliente> colaPrioridades = new LinkedList<>();
         colaPrioridades = banco.getColaPrioridades();
-        
-        if (!colaPrioridades.isEmpty()){
+
+        if (!colaPrioridades.isEmpty()) {
             StringBuilder mensaje = new StringBuilder();
             for (Cliente cliente : colaPrioridades) {
                 mensaje.append("Documento: ").append(cliente.getDocumento()).append("\n")
-                       .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
-                       .append("Nombre: ").append(cliente.getNombre()).append("\n")
-                       .append("Correo: ").append(cliente.getCorreo()).append("\n")
-                       .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
-                       .append("Saldo: ").append(cliente.getSaldo()).append("\n")
-                       .append("------------------------\n");
+                        .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
+                        .append("Nombre: ").append(cliente.getNombre()).append("\n")
+                        .append("Correo: ").append(cliente.getCorreo()).append("\n")
+                        .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
+                        .append("Saldo: ").append(cliente.getSaldo()).append("\n")
+                        .append("------------------------\n");
             }
             JOptionPane.showMessageDialog(null, mensaje);
         } else {
@@ -308,17 +315,17 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Queue<Cliente> colaNuevosClientes = new LinkedList<>();
         colaNuevosClientes = banco.getColaNuevosClientes();
-        
-        if (!colaNuevosClientes.isEmpty()){
+
+        if (!colaNuevosClientes.isEmpty()) {
             StringBuilder mensaje = new StringBuilder();
             for (Cliente cliente : colaNuevosClientes) {
                 mensaje.append("Documento: ").append(cliente.getDocumento()).append("\n")
-                       .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
-                       .append("Nombre: ").append(cliente.getNombre()).append("\n")
-                       .append("Correo: ").append(cliente.getCorreo()).append("\n")
-                       .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
-                       .append("Saldo: ").append(cliente.getSaldo()).append("\n")
-                       .append("------------------------\n");
+                        .append("Tipo Cliente: ").append(cliente.getTipoCliente()).append("\n")
+                        .append("Nombre: ").append(cliente.getNombre()).append("\n")
+                        .append("Correo: ").append(cliente.getCorreo()).append("\n")
+                        .append("Teléfono: ").append(cliente.getTelefono()).append("\n")
+                        .append("Saldo: ").append(cliente.getSaldo()).append("\n")
+                        .append("------------------------\n");
             }
             JOptionPane.showMessageDialog(null, mensaje);
         } else {
@@ -330,19 +337,19 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Queue<Cliente> colaPrioridades = new LinkedList<>();
         colaPrioridades = banco.getColaPrioridades();
-        int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese su codigo para saber cuantos turnos faltan para que lo atiendan"));
+        int documento = validateIntInput(JOptionPane.showInputDialog(null, "Ingrese su documento para saber cuantos turnos faltan para que lo atiendan"));
         int contador = 0;
         boolean encontrado = false;
-        
-        if (!colaPrioridades.isEmpty()){
+
+        if (!colaPrioridades.isEmpty()) {
             for (Cliente cliente : colaPrioridades) {
-                if(Integer.parseInt(cliente.getDocumento())==documento){
-                    encontrado = true; 
+                if (validateIntInput(cliente.getDocumento()) == documento) {
+                    encontrado = true;
                     break;
                 }
                 contador++;
             }
-            
+
             if (encontrado) {
                 JOptionPane.showMessageDialog(null, "Faltan " + contador + " turnos para que lo atiendan.");
             } else {
@@ -357,19 +364,19 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Queue<Cliente> colaNuevosClientes = new LinkedList<>();
         colaNuevosClientes = banco.getColaNuevosClientes();
-        int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese su codigo para saber cuantos turnos faltan para que lo atiendan"));
+        int documento = validateIntInput(JOptionPane.showInputDialog(null, "Ingrese su documento para saber cuantos turnos faltan para que lo atiendan"));
         int contador = 0;
         boolean encontrado = false;
-        
-        if (!colaNuevosClientes.isEmpty()){
+
+        if (!colaNuevosClientes.isEmpty()) {
             for (Cliente cliente : colaNuevosClientes) {
-                if(Integer.parseInt(cliente.getDocumento())==documento){
-                    encontrado = true; 
+                if (validateIntInput(cliente.getDocumento()) == documento) {
+                    encontrado = true;
                     break;
                 }
                 contador++;
             }
-            
+
             if (encontrado) {
                 JOptionPane.showMessageDialog(null, "Faltan " + contador + " turnos para que lo atiendan.");
             } else {
@@ -381,41 +388,39 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_turnosNopreferencialActionPerformed
 
     public Cliente buscarClientePorDocumento(String documento) {
-    
+
         for (Cliente cliente : banco.getClientes()) {
             if (cliente.getDocumento().equals(documento)) {
-                return cliente; 
+                return cliente;
             }
         }
-        return null; 
+        return null;
     }
 
-    
     private void initializeTable() {
         // Definir columnas de la tabla
         String[] columnNames = {"Documento", "Tipo de Cliente", "Nombre", "Correo", "Teléfono", "Saldo"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
-        
+
         // Agregar la tabla a un JScrollPane
         JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane);
-        
+
         // Ajustar el layout para que la tabla se vea correctamente
         scrollPane.setBounds(30, 100, 500, 200);
         this.setSize(600, 400);
         this.setLayout(null);
     }
-    
-    
+
     // MÉTODOS PARA VALIDAR MÁS:
-    
     // Validación para teléfono (10 dígitos)
     public boolean validarTelefono(String telefono) {
         if (telefono.matches("\\d{10}")) {
             return true; // El teléfono tiene 10 dígitos
         } else {
             JOptionPane.showMessageDialog(null, "El número de teléfono debe tener 10 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showInputDialog("Ingrese un número de teléfono valido: ");
             return false;
         }
     }
@@ -423,7 +428,7 @@ public class Menu extends javax.swing.JFrame {
     // Validación para el saldo
     public boolean validarSaldo(String saldo) {
         try {
-            double saldoValido = Double.parseDouble(saldo);
+            double saldoValido = validateDoubleInput(saldo);
             if (saldoValido < 0) {
                 JOptionPane.showMessageDialog(null, "El saldo no puede ser negativo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -435,15 +440,33 @@ public class Menu extends javax.swing.JFrame {
         }
     }
 
-    
+    public int validateIntInput(String str) {
+        while (isNumber(str) == false) {
+            str = JOptionPane.showInputDialog("Ingrese un número válido mayor a cero:");
+        }
+        return Integer.parseInt(str);
+    }
+
+    public double validateDoubleInput(String str) {
+        while (isNumber(str) == false) {
+            str = JOptionPane.showInputDialog("Ingrese un número válido mayor a cero:");
+        }
+        return Double.parseDouble(str);
+    }
     
 
+    public static boolean isNumber(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 
-    
-    
-    
-    
-    
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

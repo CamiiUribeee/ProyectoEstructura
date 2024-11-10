@@ -33,7 +33,7 @@ public class Bancoo {
                             datos[2].trim(),
                             datos[3].trim(),
                             datos[4].trim(), // Teléfono como String
-                            Double.parseDouble(datos[5].trim())
+                            datos[5].trim()
                         );
                         clientes.add(cliente);
                         
