@@ -85,7 +85,7 @@ public class CineLeonelda {
 
         }
         boletasVendidas += boletosVendidosEnEstaTransaccion;
-        JOptionPane.showMessageDialog(null, "Boletas vendidas exitosamente.");
+       JOptionPane.showMessageDialog(null, "Se vendieron " + boletosVendidosEnEstaTransaccion + " boletas exitosamente.");
 
     }
 
