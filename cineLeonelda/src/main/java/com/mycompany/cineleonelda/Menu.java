@@ -21,6 +21,7 @@ public class Menu extends javax.swing.JFrame {
         consultByDocument = new javax.swing.JButton();
         buyersReport = new javax.swing.JButton();
         printOrderByAge = new javax.swing.JButton();
+        addPelicula = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +62,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        addPelicula.setText("Cartelera");
+        addPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPeliculaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,14 +77,12 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addComponent(sellTickets)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(sellTickets))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(52, Short.MAX_VALUE)
+                        .addContainerGap(70, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(printOrderByAge)
-                            .addComponent(consultByDocument))
-                        .addGap(18, 18, 18)))
+                            .addComponent(consultByDocument))))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buyersReport)
@@ -84,7 +90,9 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(58, 58, 58))
             .addGroup(layout.createSequentialGroup()
                 .addGap(180, 180, 180)
-                .addComponent(tittle)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addPelicula)
+                    .addComponent(tittle))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -92,7 +100,9 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(tittle)
-                .addGap(34, 34, 34)
+                .addGap(5, 5, 5)
+                .addComponent(addPelicula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sellTickets)
                     .addComponent(seeAvailableTickets))
@@ -124,11 +134,17 @@ public class Menu extends javax.swing.JFrame {
 
     private void buyersReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyersReportActionPerformed
         // información de compradores
+        cine.mostrarCompradores();
     }//GEN-LAST:event_buyersReportActionPerformed
 
     private void printOrderByAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printOrderByAgeActionPerformed
         // imprimir en orden de edad
     }//GEN-LAST:event_printOrderByAgeActionPerformed
+
+    private void addPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPeliculaActionPerformed
+        // ingresar peliculas
+        cine.iniciarCartelera();
+    }//GEN-LAST:event_addPeliculaActionPerformed
 
    
     public static void main(String args[]) {
@@ -141,6 +157,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addPelicula;
     private javax.swing.JButton buyersReport;
     private javax.swing.JButton consultByDocument;
     private javax.swing.JButton printOrderByAge;

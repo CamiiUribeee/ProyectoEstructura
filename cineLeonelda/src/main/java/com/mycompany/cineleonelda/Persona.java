@@ -42,21 +42,23 @@ public class Persona {
     }
 
     public int calcularEdad() {
-    if (fechaNacimiento == null || fechaNacimiento.isEmpty()) {
-        System.out.println("La fecha de nacimiento es nula o vacía.");
-        return -1; // Error si la fecha no está presente
+        if (fechaNacimiento == null || fechaNacimiento.trim().isEmpty()) {
+            System.out.println("La fecha de nacimiento es nula o vacía.");
+            return -1; // Error si la fecha no está presente
+        }
+
+        try {
+
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formato);
+
+            LocalDate hoy = LocalDate.now();
+
+            return (int) ChronoUnit.YEARS.between(fechaNac, hoy);
+        } catch (DateTimeParseException e) {
+            System.out.println("Error al parsear la fecha de nacimiento: " + fechaNacimiento);
+            return -1; // Retornamos -1 si ocurre un error
+        }
     }
-
-    try {
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaNac = LocalDate.parse(fechaNacimiento, formato); // Intentar convertir la fecha
-        LocalDate hoy = LocalDate.now(); // Obtener la fecha actual
-        return (int) ChronoUnit.YEARS.between(fechaNac, hoy); // Calcular la edad en años
-    } catch (DateTimeParseException e) {
-        System.out.println("Error al parsear la fecha de nacimiento: " + fechaNacimiento);
-        return -1; // Retornar -1 si hay un error en el formato
-    }
-}
-
-
 }
