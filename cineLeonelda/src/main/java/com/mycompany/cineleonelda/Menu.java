@@ -130,6 +130,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void consultByDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultByDocumentActionPerformed
         // consutar por documento
+        cine.consultarPorDocumento();
     }//GEN-LAST:event_consultByDocumentActionPerformed
 
     private void buyersReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyersReportActionPerformed

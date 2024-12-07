@@ -198,5 +198,33 @@ public class CineLeonelda {
         }
         return Integer.parseInt(input);
     }
+    
+    public void consultarPorDocumento() {
+        int documento = validateDocumentInput(JOptionPane.showInputDialog("Ingrese el documento de la persona para consultar:"));
+
+        if (documento == -1) {
+            JOptionPane.showMessageDialog(null, "Operación cancelada.");
+            return;
+        }
+
+        Persona personaEncontrada = null;
+        for (Persona comprador : compradores) {
+            if (comprador.getDocumento() == documento) {
+                personaEncontrada = comprador;
+                break;
+            }
+        }
+
+        if (personaEncontrada != null) {
+            JOptionPane.showMessageDialog(null, "La persona con documento " + documento + " compró 1 boleta.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ninguna compra registrada para el documento " + documento + ".");
+        }
+    }
+
+    
+    
+    
+    
 
 }
