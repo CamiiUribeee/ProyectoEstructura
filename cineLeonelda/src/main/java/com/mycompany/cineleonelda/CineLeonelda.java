@@ -28,65 +28,59 @@ public class CineLeonelda {
 
     public void venderBoletas() {
 
-        if (boletasVendidas >= capacidadSala) {
-            JOptionPane.showMessageDialog(null, "No hay boletas disponibles para la película: " + peliculaCartelera);
-            return;
-        }
+    if (boletasVendidas >= capacidadSala) {
+        JOptionPane.showMessageDialog(null, "No hay boletas disponibles para la película: " + peliculaCartelera);
+        return;
+    }
 
-        JOptionPane.showMessageDialog(null, "Película en cartelera: " + peliculaCartelera + "\n¡Comencemos la venta de boletas!");
+    JOptionPane.showMessageDialog(null, "Película en cartelera: " + peliculaCartelera + "\n¡Comencemos la venta de boletas!");
 
-        if (boletasVendidas >= capacidadSala) {
-            JOptionPane.showMessageDialog(null, "No hay boletas disponibles.");
-            return;
-        }
+    int cantidadStr = validateIntInput(JOptionPane.showInputDialog("Ingrese la cantidad de boletas a comprar (máximo 5):"));
+    if (cantidadStr < 1 || cantidadStr > 5) {
+        JOptionPane.showMessageDialog(null, "Cantidad inválida. Máximo 5 boletas por persona.");
+        return;
+    }
 
-        int cantidadStr = validateIntInput(JOptionPane.showInputDialog("Ingrese la cantidad de boletas a comprar (máximo 5):"));
-        if (cantidadStr < 1 || cantidadStr > 5) {
-            JOptionPane.showMessageDialog(null, "Cantidad inválida. Máximo 5 boletas por persona.");
-            return;
-        }
+    if (boletasVendidas + cantidadStr > capacidadSala) {
+        JOptionPane.showMessageDialog(null, "No hay suficientes boletas disponibles.");
+        return;
+    }
 
-        if (boletasVendidas + cantidadStr > capacidadSala) {
-            JOptionPane.showMessageDialog(null, "No hay suficientes boletas disponibles.");
-            return;
-        }
-        
-        int boletosVendidosEnEstaTransaccion = 0;
+    int boletosVendidosEnEstaTransaccion = 0;
 
-        for (int i = 0; i < cantidadStr; i++) {
-            while (true) { 
-                
-                Persona persona = obtenerDatosPersona();
+    for (int i = 0; i < cantidadStr; i++) {
 
-                if (persona == null) {
-                    JOptionPane.showMessageDialog(null, "Se canceló el ingreso de datos. Proceso terminado.");
-                    boletasVendidas += boletosVendidosEnEstaTransaccion;
-                    return; 
-                }
+        Persona persona = null;
+        while (persona == null) { 
+            persona = obtenerDatosPersona();
 
-                boolean documentoDuplicado = false;
-                for (Persona comprador : compradores) {
-                    if (comprador.getDocumento() == persona.getDocumento()) {
-                        documentoDuplicado = true;
-                        break;
-                    }
-                }
-
-                if (documentoDuplicado) {
-                    JOptionPane.showMessageDialog(null, "El documento " + persona.getDocumento() + " ya tiene una compra registrada. Intente con otra persona.");
-                    continue; 
-                }
-
-                compradores.add(persona);
-                boletosVendidosEnEstaTransaccion++; 
-                break; 
+            if (persona == null) {
+                JOptionPane.showMessageDialog(null, "Se canceló el ingreso de datos. Proceso terminado.");
+                return;
             }
-            JOptionPane.showMessageDialog(null, "Puede cancelar el pedido de datos para continuar");
 
+            if (isDocumentoDuplicado(persona)) {
+                JOptionPane.showMessageDialog(null, "El documento " + persona.getDocumento() + " ya tiene una compra registrada. Intente con otra persona.");
+                persona = null; // reiniciar persona si hay duplicado
+            }
         }
-        boletasVendidas += boletosVendidosEnEstaTransaccion;
-       JOptionPane.showMessageDialog(null, "Se vendieron " + boletosVendidosEnEstaTransaccion + " boletas exitosamente.");
 
+        compradores.add(persona);
+        boletosVendidosEnEstaTransaccion++; 
+    }
+
+    boletasVendidas += boletosVendidosEnEstaTransaccion;
+    JOptionPane.showMessageDialog(null, "Se vendieron " + boletosVendidosEnEstaTransaccion + " boletas exitosamente.");
+}
+
+    // Método para verificar si el documento ya está registrado
+    private boolean isDocumentoDuplicado(Persona persona) {
+        for (Persona comprador : compradores) {
+            if (comprador.getDocumento() == persona.getDocumento()) {
+                return true; // Documento duplicado
+            }
+        }
+        return false;
     }
 
     private Persona obtenerDatosPersona() {

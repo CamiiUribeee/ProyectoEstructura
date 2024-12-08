@@ -4,7 +4,8 @@ package com.mycompany.cineleonelda;
 
 public class Menu extends javax.swing.JFrame {
 
-   CineLeonelda cine = new CineLeonelda();
+    CineLeonelda cine = new CineLeonelda();
+    ArbolBinario arbol = new ArbolBinario();
    
     public Menu() {
         initComponents();
@@ -140,6 +141,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void printOrderByAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printOrderByAgeActionPerformed
         // imprimir en orden de edad
+        arbol.mostrarEnOrden();
     }//GEN-LAST:event_printOrderByAgeActionPerformed
 
     private void addPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPeliculaActionPerformed
