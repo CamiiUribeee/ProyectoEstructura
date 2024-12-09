@@ -117,7 +117,7 @@ public class CineLeonelda {
                 JOptionPane.showMessageDialog(null, "No se permite la entrada a menores de 14 años.");
                 return null;
             }
-            
+
             return tempPersona;
 
         } catch (HeadlessException e) {
@@ -240,7 +240,8 @@ public class CineLeonelda {
         }
 
         if (personaEncontrada != null) {
-            JOptionPane.showMessageDialog(null, "La persona con documento " + documento + " compró 1 boleta.");
+            JOptionPane.showMessageDialog(null, "La persona con documento " + documento + " compró "
+                    + personaEncontrada.getBoletasCompradas() + " boletas.");
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró ninguna compra registrada para el documento " + documento + ".");
         }
