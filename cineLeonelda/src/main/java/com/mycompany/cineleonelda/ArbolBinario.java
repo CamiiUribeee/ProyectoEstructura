@@ -1,6 +1,8 @@
 
 package com.mycompany.cineleonelda;
 
+import javax.swing.JOptionPane;
+
 
 public class ArbolBinario {
     
@@ -43,13 +45,13 @@ public class ArbolBinario {
         mostrarEnOrdenRecursivo(raiz);
     }
 
-    // Recorrido en in-order para mostrar personas de menor a mayor edad
     private void mostrarEnOrdenRecursivo(Nodo nodo) {
         if (nodo != null) {
-            mostrarEnOrdenRecursivo(nodo.getIzquierdo()); 
-            System.out.println(nodo.getPersona().getNombre() + " - Edad: " + nodo.getPersona().calcularEdad());
-            mostrarEnOrdenRecursivo(nodo.getDerecho()); 
+            mostrarEnOrdenRecursivo(nodo.getIzquierdo());
+        JOptionPane.showMessageDialog(null, nodo.getPersona().getNombre() + " - Edad: " + nodo.getPersona().calcularEdad());
+            mostrarEnOrdenRecursivo(nodo.getDerecho());
         }
     }
+
     
 }

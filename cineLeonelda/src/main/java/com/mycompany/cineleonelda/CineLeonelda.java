@@ -12,6 +12,8 @@ public class CineLeonelda {
     private int boletasVendidas = 0;
     private final List<Persona> compradores = new ArrayList<>();
     private Nodo raiz;
+    private ArbolBinario arbolCompradores = new ArbolBinario();
+
 
     public void iniciarCartelera() {
         peliculaCartelera = JOptionPane.showInputDialog("Ingrese el nombre de la película en cartelera:");
@@ -66,11 +68,17 @@ public class CineLeonelda {
         }
 
         compradores.add(persona);
+        arbolCompradores.insertar(persona);
         boletosVendidosEnEstaTransaccion++; 
+        
     }
 
     boletasVendidas += boletosVendidosEnEstaTransaccion;
     JOptionPane.showMessageDialog(null, "Se vendieron " + boletosVendidosEnEstaTransaccion + " boletas exitosamente.");
+    
+    //compradores.add(persona); // Sigue añadiendo a la lista si es necesario
+     // Inserta en el árbol binario
+
 }
 
     // Método para verificar si el documento ya está registrado
@@ -217,7 +225,13 @@ public class CineLeonelda {
     }
 
     
-    
+    public void mostrarEnOrden() {
+    if (boletasVendidas == 0) {
+        JOptionPane.showMessageDialog(null, "No hay personas registradas en el sistema.");
+    } else {
+        arbolCompradores.mostrarEnOrden();
+    }
+}
     
     
 
