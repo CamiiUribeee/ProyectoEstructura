@@ -10,11 +10,20 @@ public class Persona {
     private String nombre;
     private int documento;
     private String fechaNacimiento;
+    private int boletasCompradas;
 
     public Persona(String nombre, int documento, String fechaNacimiento) {
         this.nombre = nombre;
         this.documento = documento;
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public int getBoletasCompradas() {
+        return boletasCompradas;
+    }
+
+    public void setBoletasCompradas(int boletasCompradas) {
+        this.boletasCompradas = boletasCompradas;
     }
 
     public String getNombre() {

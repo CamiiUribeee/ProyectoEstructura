@@ -1,5 +1,6 @@
 package com.mycompany.cineleonelda;
 
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -11,9 +12,7 @@ public class CineLeonelda {
     private final int capacidadSala = 500;
     private int boletasVendidas = 0;
     private final List<Persona> compradores = new ArrayList<>();
-    private Nodo raiz;
-    private ArbolBinario arbolCompradores = new ArbolBinario();
-
+    private final ArbolBinario arbolCompradores = new ArbolBinario();
 
     public void iniciarCartelera() {
         peliculaCartelera = JOptionPane.showInputDialog("Ingrese el nombre de la película en cartelera:");
@@ -30,62 +29,57 @@ public class CineLeonelda {
 
     public void venderBoletas() {
 
-    if (boletasVendidas >= capacidadSala) {
-        JOptionPane.showMessageDialog(null, "No hay boletas disponibles para la película: " + peliculaCartelera);
-        return;
-    }
+        if (boletasVendidas >= capacidadSala) {
+            JOptionPane.showMessageDialog(null, "No hay boletas disponibles para la película: " + peliculaCartelera);
+            return;
+        }
 
-    JOptionPane.showMessageDialog(null, "Película en cartelera: " + peliculaCartelera + "\n¡Comencemos la venta de boletas!");
+        JOptionPane.showMessageDialog(null, "Película en cartelera: " + peliculaCartelera + "\n¡Comencemos la venta de boletas!");
 
-    int cantidadStr = validateIntInput(JOptionPane.showInputDialog("Ingrese la cantidad de boletas a comprar (máximo 5):"));
-    if (cantidadStr < 1 || cantidadStr > 5) {
-        JOptionPane.showMessageDialog(null, "Cantidad inválida. Máximo 5 boletas por persona.");
-        return;
-    }
-
-    if (boletasVendidas + cantidadStr > capacidadSala) {
-        JOptionPane.showMessageDialog(null, "No hay suficientes boletas disponibles.");
-        return;
-    }
-
-    int boletosVendidosEnEstaTransaccion = 0;
-
-    for (int i = 0; i < cantidadStr; i++) {
-
-        Persona persona = null;
-        while (persona == null) { 
-            persona = obtenerDatosPersona();
-
+        while (boletasVendidas < capacidadSala) {
+            Persona persona = obtenerDatosPersona();
             if (persona == null) {
                 JOptionPane.showMessageDialog(null, "Se canceló el ingreso de datos. Proceso terminado.");
                 return;
             }
 
             if (isDocumentoDuplicado(persona)) {
-                JOptionPane.showMessageDialog(null, "El documento " + persona.getDocumento() + " ya tiene una compra registrada. Intente con otra persona.");
-                persona = null; // reiniciar persona si hay duplicado
+                JOptionPane.showMessageDialog(null, "El documento ya tiene una compra registrada. Intente con otra persona.");
+                continue;
+            }
+
+            int cantidadBoletas = validateIntInput(JOptionPane.showInputDialog("Ingrese la cantidad de boletas que desea comprar (máximo 5):"));
+            if (cantidadBoletas < 1 || cantidadBoletas > 5) {
+                JOptionPane.showMessageDialog(null, "Cantidad inválida. Máximo 5 boletas por persona.");
+                continue;
+            }
+
+            if (boletasVendidas + cantidadBoletas > capacidadSala) {
+                JOptionPane.showMessageDialog(null, "No hay suficientes boletas disponibles.");
+                continue;
+            }
+
+            persona.setBoletasCompradas(cantidadBoletas);
+            compradores.add(persona);
+            arbolCompradores.insertar(persona);
+            boletasVendidas += cantidadBoletas;
+
+            JOptionPane.showMessageDialog(null, "¡Compra registrada exitosamente! " + persona.getNombre() + " ha comprado " + cantidadBoletas + " boletas.");
+
+            int continuar = JOptionPane.showConfirmDialog(null, "¿Desea registrar otra compra?", "Continuar", JOptionPane.YES_NO_OPTION);
+            if (continuar == JOptionPane.NO_OPTION) {
+                break;
             }
         }
 
-        compradores.add(persona);
-        arbolCompradores.insertar(persona);
-        boletosVendidosEnEstaTransaccion++; 
-        
+        JOptionPane.showMessageDialog(null, "Venta de boletas finalizada. Boletas totales vendidas: " + boletasVendidas);
     }
-
-    boletasVendidas += boletosVendidosEnEstaTransaccion;
-    JOptionPane.showMessageDialog(null, "Se vendieron " + boletosVendidosEnEstaTransaccion + " boletas exitosamente.");
-    
-    //compradores.add(persona); // Sigue añadiendo a la lista si es necesario
-     // Inserta en el árbol binario
-
-}
 
     // Método para verificar si el documento ya está registrado
     private boolean isDocumentoDuplicado(Persona persona) {
         for (Persona comprador : compradores) {
             if (comprador.getDocumento() == persona.getDocumento()) {
-                return true; // Documento duplicado
+                return true;
             }
         }
         return false;
@@ -123,10 +117,10 @@ public class CineLeonelda {
                 JOptionPane.showMessageDialog(null, "No se permite la entrada a menores de 14 años.");
                 return null;
             }
-
-            return tempPersona;
             
-        } catch (Exception e) {
+            return tempPersona;
+
+        } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "Error procesando la fecha. Verifique el formato (dd/MM/yyyy).");
             return null;
         }
@@ -143,16 +137,44 @@ public class CineLeonelda {
             return;
         }
 
-        StringBuilder sb = new StringBuilder("Lista de Compradores:\n");
+        StringBuilder menores = new StringBuilder("Menores de edad:\n");
+        StringBuilder adultos = new StringBuilder("Adultos:\n");
+        int cantidadMenores = 0;
+        int cantidadAdultos = 0;
 
         for (Persona comprador : compradores) {
-            sb.append("Nombre: ").append(comprador.getNombre()).append("\n")
-                    .append("Documento: ").append(comprador.getDocumento()).append("\n")
-                    .append("Fecha de Nacimiento: ").append(comprador.getFechaNacimiento()).append("\n")
-                    .append("-------------------------\n");
+            int edad = comprador.calcularEdad();
+
+            // Separar según la edad
+            if (edad < 18) {
+                cantidadMenores++;
+                menores.append("Nombre: ").append(comprador.getNombre()).append("\n")
+                        .append("Documento: ").append(comprador.getDocumento()).append("\n")
+                        .append("Edad: ").append(edad).append(" años\n")
+                        .append("-------------------------\n");
+            } else {
+                cantidadAdultos++;
+                adultos.append("Nombre: ").append(comprador.getNombre()).append("\n")
+                        .append("Documento: ").append(comprador.getDocumento()).append("\n")
+                        .append("Edad: ").append(edad).append(" años\n")
+                        .append("-------------------------\n");
+            }
         }
 
-        JOptionPane.showMessageDialog(null, sb.toString());
+        if (cantidadMenores == 0) {
+            menores.append("No hay menores de edad registrados.\n");
+        }
+        if (cantidadAdultos == 0) {
+            adultos.append("No hay adultos registrados.\n");
+        }
+        StringBuilder mensajeFinal = new StringBuilder();
+        mensajeFinal.append("Total de compradores: ").append(compradores.size()).append("\n")
+                .append("Cantidad de menores de edad: ").append(cantidadMenores).append("\n")
+                .append("Cantidad de adultos: ").append(cantidadAdultos).append("\n")
+                .append("\n").append(menores)
+                .append("\n").append(adultos);
+
+        JOptionPane.showMessageDialog(null, mensajeFinal.toString());
     }
 
     public int validateIntInput(String str) {
@@ -200,7 +222,7 @@ public class CineLeonelda {
         }
         return Integer.parseInt(input);
     }
-    
+
     public void consultarPorDocumento() {
         int documento = validateDocumentInput(JOptionPane.showInputDialog("Ingrese el documento de la persona para consultar:"));
 
@@ -224,15 +246,12 @@ public class CineLeonelda {
         }
     }
 
-    
     public void mostrarEnOrden() {
-    if (boletasVendidas == 0) {
-        JOptionPane.showMessageDialog(null, "No hay personas registradas en el sistema.");
-    } else {
-        arbolCompradores.mostrarEnOrden();
+        if (boletasVendidas == 0) {
+            JOptionPane.showMessageDialog(null, "No hay personas registradas en el sistema.");
+        } else {
+            arbolCompradores.mostrarEnOrden();
+        }
     }
-}
-    
-    
 
 }
